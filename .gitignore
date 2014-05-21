@@ -1,0 +1,10 @@
+/out
+*.log
+/build
+/target
+/.classpath
+/.project
+/.settings
+Procfile
+
+
