@@ -2,20 +2,15 @@ package evaluation.model;
 
 public class City {
 	final private String id;
-	final private String name;
 
-	public City(String id, String name) {
+	public City(String id) {
 		this.id = id;
-		this.name = name;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
-	}
 
 	@Override
 	public int hashCode() {
@@ -44,7 +39,7 @@ public class City {
 
 	@Override
 	public String toString() {
-		return name;
+		return id;
 	}
 
 }

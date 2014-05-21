@@ -30,7 +30,7 @@ public class Path  {
 	  
 	  @Override
 	  public String toString() {
-	    return source + " " + destination;
+	    return source + " " + destination + " " + distance;
 	  }
 	  
 	  
