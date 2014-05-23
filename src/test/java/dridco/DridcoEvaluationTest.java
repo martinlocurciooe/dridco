@@ -8,21 +8,21 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import evaluation.exception.service.DijkstraAlgorithmServiceException;
+import evaluation.exception.service.AreaMapServiceException;
 import evaluation.model.AreaMap;
 import evaluation.model.City;
 import evaluation.model.Path;
-import evaluation.service.DijkstraAlgorithmService;
-import evaluation.service.impl.DijkstraAlgorithmServiceImpl;
+import evaluation.service.AreaMapService;
+import evaluation.service.impl.AreaMapServiceImpl;
 
 public class DridcoEvaluationTest {
 
 	private List<City> cities;
 	private List<Path> paths;
-	private DijkstraAlgorithmService dijkstra;
+	private AreaMapService areaMapService;
 
 	@Before
-	public void setUp() throws DijkstraAlgorithmServiceException {
+	public void setUp() throws AreaMapServiceException {
 		cities = new ArrayList<City>();
 		paths = new ArrayList<Path>();
 		City city1 = new City("A");
@@ -45,7 +45,7 @@ public class DridcoEvaluationTest {
 	    addPath("Edge_7", 4, 1, 3);
 	    addPath("Edge_8", 0, 4, 7);
 	    AreaMap areaMap = new AreaMap(cities, paths);
-	    dijkstra = new DijkstraAlgorithmServiceImpl(areaMap);
+	    areaMapService = new AreaMapServiceImpl(areaMap);
 	    
 	}
 
@@ -56,86 +56,86 @@ public class DridcoEvaluationTest {
 	
 	/**
 	 * 1. La distancia de la ruta A-B-C
-	 * @throws DijkstraAlgorithmServiceException 
+	 * @throws AreaMapServiceException 
 	 */
 	@Test
-	public void testDistanceBetweenABC() throws DijkstraAlgorithmServiceException {
+	public void testDistanceBetweenABC() throws AreaMapServiceException {
 		List<City> citiesToGetDistances = new ArrayList<City>();
 		citiesToGetDistances.add(new City("A"));
 		citiesToGetDistances.add(new City("B"));
 		citiesToGetDistances.add(new City("C"));
-		int distanceBetween = dijkstra.getDistanceBetween(citiesToGetDistances);
+		int distanceBetween = areaMapService.getDistanceBetween(citiesToGetDistances);
 		assertEquals(9,distanceBetween);
 	}
 	
 	/**
 	 * 2. La distancia de la ruta A-D
-	 * @throws DijkstraAlgorithmServiceException 
+	 * @throws AreaMapServiceException 
 	 */
 	@Test
-	public void testDistanceBetweenAD() throws DijkstraAlgorithmServiceException {
+	public void testDistanceBetweenAD() throws AreaMapServiceException {
 		List<City> citiesToGetDistances = new ArrayList<City>();
 		citiesToGetDistances.add(new City("A"));
 		citiesToGetDistances.add(new City("D"));
-		int distanceBetween = dijkstra.getDistanceBetween(citiesToGetDistances);
+		int distanceBetween = areaMapService.getDistanceBetween(citiesToGetDistances);
 		assertEquals(5,distanceBetween);
 	}
 	
 	/**
 	 * 3. La distancia de la ruta A-D-C
-	 * @throws DijkstraAlgorithmServiceException 
+	 * @throws AreaMapServiceException 
 	 */
 	@Test
-	public void testDistanceBetweenADC() throws DijkstraAlgorithmServiceException {
+	public void testDistanceBetweenADC() throws AreaMapServiceException {
 		List<City> citiesToGetDistances = new ArrayList<City>();
 		citiesToGetDistances.add(new City("A"));
 		citiesToGetDistances.add(new City("D"));
 		citiesToGetDistances.add(new City("C"));
-		int distanceBetween = dijkstra.getDistanceBetween(citiesToGetDistances);
+		int distanceBetween = areaMapService.getDistanceBetween(citiesToGetDistances);
 		assertEquals(13,distanceBetween);
 	}
 	
 	/**
 	 * 4. La distancia de la ruta A-E-B-C-D
-	 * @throws DijkstraAlgorithmServiceException 
+	 * @throws AreaMapServiceException 
 	 */
 	@Test
-	public void testDistanceBetweenAEBCD() throws DijkstraAlgorithmServiceException {
+	public void testDistanceBetweenAEBCD() throws AreaMapServiceException {
 		List<City> citiesToGetDistances = new ArrayList<City>();
 		citiesToGetDistances.add(new City("A"));
 		citiesToGetDistances.add(new City("E"));
 		citiesToGetDistances.add(new City("B"));
 		citiesToGetDistances.add(new City("C"));
 		citiesToGetDistances.add(new City("D"));
-		int distanceBetween = dijkstra.getDistanceBetween(citiesToGetDistances);
+		int distanceBetween = areaMapService.getDistanceBetween(citiesToGetDistances);
 		assertEquals(22,distanceBetween);
 	}
 	
 	/**
 	 * 5. La distancia de la ruta A-E-D
-	 * @throws DijkstraAlgorithmServiceException 
+	 * @throws AreaMapServiceException 
 	 */
-	@Test(expected = DijkstraAlgorithmServiceException.class)
-	public void testDistanceBetweenAED() throws DijkstraAlgorithmServiceException {
+	@Test(expected = AreaMapServiceException.class)
+	public void testDistanceBetweenAED() throws AreaMapServiceException {
 		List<City> citiesToGetDistances = new ArrayList<City>();
 		citiesToGetDistances.add(new City("A"));
 		citiesToGetDistances.add(new City("E"));
 		citiesToGetDistances.add(new City("D"));
-		dijkstra.getDistanceBetween(citiesToGetDistances);
+		areaMapService.getDistanceBetween(citiesToGetDistances);
 	}
 	
 	/**
 	 * La cantidad de viajes partiendo desde C y terminando en C con un máximo de tres paradas. 
 	 * Con el grafo provisto de ejemplo, pueden encontrarse 2 viajes posibles con 
-	 * dichas características: C-D-C (2 paradas) y C-E-B-C (3 paradas) testTravelsSourceAndDestinationCWithMaximumOf3Stops
+	 * dichas características: C-D-C (2 paradas) y C-E-B-C (3 paradas)
 	 */
 
 	@Test
-	public void testTravelsSourceAndDestinationCWithMaximumOf3Stops() throws DijkstraAlgorithmServiceException {
+	public void testTravelsSourceAndDestinationCWithMaximumOf3Stops() throws AreaMapServiceException {
 		City source = new City("C");
 		City destination = new City("C");
 		int maxStops = 3;
-		int numberOfTravels = dijkstra.getNumberOfTravelsMaxStops(source, destination, maxStops);
+		int numberOfTravels = areaMapService.getNumberOfTravelsMaxStops(source, destination, maxStops);
 		assertEquals(2,numberOfTravels);
 	}
 	
@@ -145,35 +145,35 @@ public class DridcoEvaluationTest {
 	 *  dichas características: A hacia C (vía B-C-D); A hacia C (vía D-C-D); y A hacia C (vía D-E-B).
 	 */
 	@Test
-	public void testTravelsSourceADestinationCWithNumberOfStops3() throws DijkstraAlgorithmServiceException {
+	public void testTravelsSourceADestinationCWithNumberOfStops4() throws AreaMapServiceException {
 		City source = new City("A");
 		City destination = new City("C");
-		int stops = 3;
-		int numberOfTravels = dijkstra.getNumberOfTravelsWithStops(source, destination, stops);
+		int stops = 4;
+		int numberOfTravels = areaMapService.getNumberOfTravelsWithStops(source, destination, stops);
 		assertEquals(3,numberOfTravels);
 	}
 	
 	/**
 	 * 8. La distancia de la ruta más corta desde A hasta C
-	 * @throws DijkstraAlgorithmServiceException
+	 * @throws AreaMapServiceException
 	 */
 	@Test
-	public void testShortDistanceBetweenAC() throws DijkstraAlgorithmServiceException {
+	public void testShortDistanceBetweenAC() throws AreaMapServiceException {
 		City source = new City("A");
 		City destination = new City("C");
-		int shortDistance = dijkstra.getShortestDistanceBetween(source, destination);
+		int shortDistance = areaMapService.getShortestDistanceBetween(source, destination);
 		assertEquals(9,shortDistance);
 	}
 	
 	/**
 	 * 9. La distancia de la ruta más corta desde B hasta B
-	 * @throws DijkstraAlgorithmServiceException
+	 * @throws AreaMapServiceException
 	 */
 	@Test
-	public void testShortDistanceBetweenBB() throws DijkstraAlgorithmServiceException {
+	public void testShortDistanceBetweenBB() throws AreaMapServiceException {
 		City source = new City("B");
 		City destination = new City("B");
-		int shortDistance = dijkstra.getShortestDistanceBetween(source, destination);
+		int shortDistance = areaMapService.getShortestDistanceBetween(source, destination);
 		assertEquals(9,shortDistance);
 	}
 	
@@ -181,14 +181,14 @@ public class DridcoEvaluationTest {
 	 * 10. La cantidad de rutas distintas desde C hasta C con una distancia menor a 30.
 	 *  Con el grafo provisto de ejemplo pueden encontrarse los siguientes viajes con
 	 *  dichas características: C-D-C, C-E-B-C, C-E-B-C-D-C, C-D-C-E-B-C, C-D-E-B-C, C-E-B-C-E-B-C, C-E-B-C-E-B-C-E-B-C.
-	 * @throws DijkstraAlgorithmServiceException
+	 * @throws AreaMapServiceException
 	 */
 	@Test
-	public void testNumberOfPathsCtoCWithDistanceLessThan30() throws DijkstraAlgorithmServiceException {
+	public void testNumberOfPathsCtoCWithDistanceLessThan30() throws AreaMapServiceException {
 		City source = new City("C");
 		City destination = new City("C");
 		int distance = 30;
-		int numberOfPaths = dijkstra.getNumberOfPathsWithDistanceLessThan(source, destination, distance);
+		int numberOfPaths = areaMapService.getNumberOfPathsWithDistanceLessThan(source, destination, distance);
 		assertEquals(7,numberOfPaths);
 	}
 	
