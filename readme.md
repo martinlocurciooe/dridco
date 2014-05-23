@@ -18,7 +18,7 @@ Where the args have the following structure:
 
 Example of ejecution:
 
-mvn exec:java -Dexec.mainClass="com.dridco.application.Application" -Dexec.args="AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7 getDistanceBetweenCities A B C"
+mvn exec:java -Dexec.mainClass="evaluation.application.Application" -Dexec.args="AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7 getDistanceBetweenCities A B C"
 
 
 
